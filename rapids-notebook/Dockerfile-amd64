@@ -1,0 +1,11 @@
+ARG BASE_CONTAINER=adamjm32/kf-gpu-notebook
+FROM $BASE_CONTAINER
+ARG ARCH=amd64
+
+LABEL maintainer="Adam Makarucha"
+
+RUN eval "$(conda shell.bash hook |sed 's/base/wmlce/g')" && \
+    conda install --quiet --yes -n wmlce \
+    -c rapidsai-nightly -c nvidia -c conda-forge \
+    -c defaults rapids=0.13 python=3.7 cudatoolkit=10.2 && \
+    conda clean --all -f -y 
