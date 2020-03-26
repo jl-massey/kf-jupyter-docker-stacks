@@ -1,6 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=adamjm32/kf-minimal-notebook
+ARG BASE_CONTAINER=adamjm32/kf-kubeflow-notebook
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Adam Makarucha"
@@ -11,33 +11,35 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python 3 packages
-RUN conda install --quiet --yes -n wmlce \
-    'beautifulsoup4=4.8.*' \
-    'conda-forge::blas=*=openblas' \
-    'bokeh=1.4.*' \
-    'cloudpickle=1.3.*' \
-    'cython=0.29.*' \
+RUN eval "$(conda shell.bash hook |sed 's/base/wmlce/g')" && \
+    conda install --quiet --yes -n wmlce \
+    "openblas" \
+    'beautifulsoup4' \
+    'openblas' \
+    'bokeh' \
+    'cloudpickle' \
+    'cython' \
     'dask' \
-    'dill=0.3.*' \
-    'h5py=2.10.*' \
-    'hdf5=1.10.*' \
-    'ipywidgets=7.5.*' \
-    'ipympl=0.5.*'\
-    'matplotlib-base=3.1.*' \
-    'numba=0.48.*' \
-    'numexpr=2.7.*' \
-    'pandas=1.0.*' \
-    'patsy=0.5.*' \
+    'dill' \
+    'h5py' \
+    'hdf5' \
+    'ipywidgets' \
+    'ipympl'\
+    'matplotlib-base' \
+    'numba' \
+    'numexpr' \
+    'pandas' \
+    'patsy' \
     'protobuf' \
     'scikit-image' \
     'scikit-learn' \
     'scipy' \
-    'seaborn=0.10.*' \
-    'sqlalchemy=1.3.*' \
-    'statsmodels=0.11.*' \
-    'sympy=1.5.*' \
-    'vincent=0.4.*' \
-    'widgetsnbextension=3.5.*'\
+    'seaborn' \
+    'sqlalchemy' \
+    'statsmodels' \
+    'sympy' \
+    'vincent' \
+    'widgetsnbextension'\
     'xlrd' \
     && \
     conda clean --all -f -y && \
@@ -56,7 +58,7 @@ RUN conda install --quiet --yes -n wmlce \
     rm -rf /home/root/.node-gyp
 
 # Install facets which does not have a pip or conda package at the moment
-RUN cd /tmp && \
+RUN eval "$(conda shell.bash hook |sed 's/base/wmlce/g')" && cd /tmp && \
     git clone https://github.com/PAIR-code/facets.git && \
     cd facets && \
     jupyter nbextension install facets-dist/ --sys-prefix && \
@@ -65,4 +67,4 @@ RUN cd /tmp && \
 
 # Import matplotlib the first time to build the font cache.
 ENV XDG_CACHE_HOME /home/root/.cache/
-RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" 
+RUN eval "$(conda shell.bash hook |sed 's/base/wmlce/g')" && MPLBACKEND=Agg python -c "import matplotlib.pyplot" 
