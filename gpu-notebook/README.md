@@ -1,4 +1,4 @@
-### kf-jupyter-docker-stacks/gpu-notebook  
+## kf-jupyter-docker-stacks/gpu-notebook  
 
 [Source on GitLab](https://git.puma.corp.telstra.com/tail/notebook-images/kf-jupyter-docker-stacks/tree/master/gpu-notebook) | [Dockerfile commit history](https://git.puma.corp.telstra.com/tail/notebook-images/kf-jupyter-docker-stacks/commits/master/gpu-notebook/Dockerfile)
 

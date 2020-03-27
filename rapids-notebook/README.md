@@ -1,4 +1,4 @@
-### kf-jupyter-docker-stacks/rapids-notebook
+## kf-jupyter-docker-stacks/rapids-notebook
 
 [Source Code](https://git.puma.corp.telstra.com/tail/notebook-images/kf-jupyter-docker-stacks/tree/master/rapids-notebook)
 
